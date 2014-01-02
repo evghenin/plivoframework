@@ -731,10 +731,7 @@ class Dial(Element):
 
     def create_number(self, number_instance, outbound_socket):
         num_gw = []
-        # skip number object without gateway or number
-        if not number_instance.gateways:
-            outbound_socket.log.error("Gateway not defined on Number object !")
-            return ''
+        # skip number object without number
         if not number_instance.number:
             outbound_socket.log.error("Number not defined on Number object  !")
             return ''
@@ -1238,6 +1235,8 @@ class Number(Element):
         if gateways:
             # get list of gateways
             self.gateways = gateways.split(',')
+    	else:
+        	self.gateways = [""]
         # split gw codecs by , but only outside the ''
         if gateway_codecs:
             self.gateway_codecs = \
